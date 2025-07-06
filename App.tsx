@@ -15,16 +15,15 @@ const img2 = require("./assets/img2.png");
 const imgUri = 'https://www.visual-craft.com/strapi/uploads/React_Native_2_c5ab49be9b.png';
 
 
+const { width, height } = Dimensions.get("window");
+
 export default function App() {
-  const { width, height } = Dimensions.get("window");
   console.log("Window dimensions:", { width, height });
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
         Open up App.tsx to start working on your app!
       </Text>
-      <Text style={{ borderWidth: 2, width: width * 0.9 }}>Open up </Text>
-      <Text>Open </Text>
       <Button title="Press Me" />
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
@@ -37,12 +36,12 @@ export default function App() {
 
       <Image
         source={{uri: imgUri}}
-        style={styles.image}
+        style={[styles.image, { width: width * 0.9, height: 200 }]}
       />
 
       <ImageBackground
         source={img2}
-        style={styles.imageBackground}
+        style={{...styles.imageBackground, width: width * 0.9, height: 200}}
       >
         <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
       </ImageBackground>
@@ -84,15 +83,14 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   image: {
-    width: "90%",
-    height: 100,
+    width: width * 0.9,
+    height: 200,
     resizeMode: "cover",
     marginVertical: 10,
     borderRadius: 10
   },
   imageBackground: {
-    width: "90%",
-    height: 100,
+
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,

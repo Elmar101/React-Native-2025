@@ -7,41 +7,48 @@ import {
   TouchableOpacity,
   View,
   Image,
-  ImageBackground
+  ImageBackground,
+  Alert,
 } from "react-native";
 
 const img1 = require("./assets/img1.png");
 const img2 = require("./assets/img2.png");
-const imgUri = 'https://www.visual-craft.com/strapi/uploads/React_Native_2_c5ab49be9b.png';
-
+const imgUri =
+  "https://www.visual-craft.com/strapi/uploads/React_Native_2_c5ab49be9b.png";
 
 const { width, height } = Dimensions.get("window");
 
 export default function App() {
   console.log("Window dimensions:", { width, height });
+  const handlePress = () => {
+    Alert.alert("Button Pressed", "You pressed the button!", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
         Open up App.tsx to start working on your app!
       </Text>
-      <Button title="Press Me" />
-      <TouchableOpacity style={styles.button}>
+      <Button title="Press Me" onPress={handlePress} />
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
       </TouchableOpacity>
 
-      <Image
-        source={img1}
-        style={styles.image}
-      />
+      <Image source={img1} style={styles.image} />
 
       <Image
-        source={{uri: imgUri}}
+        source={{ uri: imgUri }}
         style={[styles.image, { width: width * 0.9, height: 200 }]}
       />
 
       <ImageBackground
         source={img2}
-        style={{...styles.imageBackground, width: width * 0.9, height: 200}}
+        style={{ ...styles.imageBackground, width: width * 0.9, height: 200 }}
       >
         <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
       </ImageBackground>
@@ -87,10 +94,9 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "cover",
     marginVertical: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   imageBackground: {
-
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -141,6 +147,6 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 18,
-    marginBottom: 20,    
+    marginBottom: 20,
   },
 });

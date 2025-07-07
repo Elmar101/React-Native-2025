@@ -9,6 +9,7 @@ import {
   Image,
   ImageBackground,
   Alert,
+  ScrollView,
 } from "react-native";
 
 const img1 = require("./assets/img1.png");
@@ -16,10 +17,9 @@ const img2 = require("./assets/img2.png");
 const imgUri =
   "https://www.visual-craft.com/strapi/uploads/React_Native_2_c5ab49be9b.png";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export default function App() {
-  console.log("Window dimensions:", { width, height });
   const handlePress = () => {
     Alert.alert("Button Pressed", "You pressed the button!", [
       {
@@ -30,39 +30,44 @@ export default function App() {
     ]);
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.tsx to start working on your app!
-      </Text>
-      <Button title="Press Me" onPress={handlePress} />
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
-      </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View>
+        <Text style={styles.text}>
+          Open up App.tsx to start working on your app!
+        </Text>
+        <Button title="Press Me" onPress={handlePress} />
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
+        </TouchableOpacity>
 
-      <Image source={img1} style={styles.image} />
+        <Image source={img1} style={styles.image} />
 
-      <Image
-        source={{ uri: imgUri }}
-        style={[styles.image, { width: width * 0.9, height: 200 }]}
-      />
+        <Image
+          source={{ uri: imgUri }}
+          style={[styles.image, { width: width * 0.9, height: 200 }]}
+        />
 
-      <ImageBackground
-        source={img2}
-        style={{ ...styles.imageBackground, width: width * 0.9, height: 200 }}
-      >
-        <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
-      </ImageBackground>
-      <StatusBar style="auto" />
-    </View>
+        <ImageBackground
+          source={img2}
+          style={{ ...styles.imageBackground, width: width * 0.9, height: 200 }}
+        >
+          <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
+        </ImageBackground>
+
+        {Array.from({ length: 70 }).map((_, index) => (
+          <View key={index} style={styles.listItem}>
+            <Text style={styles.listItemText}>Item {index + 1}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    paddingVertical: 20,
     alignItems: "center",
-    justifyContent: "center",
   },
   text: {
     color: "#333",
@@ -75,6 +80,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    cursor: "pointer",
   },
   buttonText: {
     color: "#fff",

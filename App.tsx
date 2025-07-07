@@ -30,37 +30,58 @@ export default function App() {
     ]);
   };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View>
-        <Text style={styles.text}>
-          Open up App.tsx to start working on your app!
-        </Text>
-        <Button title="Press Me" onPress={handlePress} />
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
-        </TouchableOpacity>
+    <>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View>
+          <Text style={styles.text}>
+            Open up App.tsx to start working on your app!
+          </Text>
+          <Button title="Press Me" onPress={handlePress} />
+          <TouchableOpacity style={styles.button} onPress={handlePress}>
+            <Text style={styles.buttonText}>Press Me TouchableOpacity</Text>
+          </TouchableOpacity>
 
-        <Image source={img1} style={styles.image} />
+          <Image source={img1} style={styles.image} />
 
-        <Image
-          source={{ uri: imgUri }}
-          style={[styles.image, { width: width * 0.9, height: 200 }]}
-        />
+          <Image
+            source={{ uri: imgUri }}
+            style={[styles.image, { width: width * 0.9, height: 200 }]}
+          />
 
-        <ImageBackground
-          source={img2}
-          style={{ ...styles.imageBackground, width: width * 0.9, height: 200 }}
-        >
-          <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
-        </ImageBackground>
+          <ImageBackground
+            source={img2}
+            style={{
+              ...styles.imageBackground,
+              width: width * 0.9,
+              height: 200,
+            }}
+          >
+            <Text style={styles.imgBgText}>Hello from ImageBackground</Text>
+          </ImageBackground>
 
+          {Array.from({ length: 70 }).map((_, index) => (
+            <View key={index} style={styles.listItem}>
+              <Text style={styles.listItemText}>Item {index + 1}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+      
+      <ScrollView
+        horizontal
+        contentContainerStyle={styles.horizontalList}
+        showsHorizontalScrollIndicator={false}
+      >
         {Array.from({ length: 70 }).map((_, index) => (
-          <View key={index} style={styles.listItem}>
-            <Text style={styles.listItemText}>Item {index + 1}</Text>
+          <View key={index} style={styles.box}>
+            <Text style={styles.letter}>Item {index + 1}</Text>
           </View>
         ))}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
 
@@ -154,5 +175,25 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 20,
+  },
+  horizontalList: {
+    paddingVertical: 20,
+    marginVertical: 20,
+    marginBottom: 20,
+  },
+  box: {
+    width: 100,
+    height: 100,
+    backgroundColor: "#007BFF",
+    marginRight: 12,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40,
+  },
+  letter: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });

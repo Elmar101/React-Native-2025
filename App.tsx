@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { use, useEffect, useState } from "react";
 import {
   Button,
   Dimensions,
@@ -59,6 +60,15 @@ const flatListData = [
 ];
 
 export default function App() {
+  const [count, setCount] = useState<number>(0);
+  const [second, setSecend] = useState<number>(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => setSecend(second + 1), 1000); 
+    return () => clearInterval(intervalId); 
+  }, []);
+
+  
   const handlePress = () => {
     Alert.alert("Button Pressed", "You pressed the button!", [
       { text: "Cancel", onPress: () => console.log("Cancel Pressed") },
@@ -67,6 +77,12 @@ export default function App() {
   };
   return (
     <>
+      <View style={{paddingTop: 50}}>
+        <Button title="Increment" onPress={() => setCount(count + 1)} />
+        <Text>Count: {count}</Text>
+        <Button title="Decrement" onPress={() => setCount(count - 1)} />
+      </View>
+      <Text style={{paddingTop: 50}}>Second: {second}</Text>
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
@@ -106,7 +122,8 @@ export default function App() {
         </View>
       </ScrollView>
 
-      <ScrollView
+ <View>
+       <ScrollView
         horizontal
         contentContainerStyle={styles.horizontalList}
         showsHorizontalScrollIndicator={false}
@@ -117,6 +134,7 @@ export default function App() {
           </View>
         ))}
       </ScrollView>
+ </View>
       <FlatList
         data={flatListData}
         keyExtractor={(item) => item.id}
@@ -244,6 +262,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     paddingVertical: 20,
+    marginTop: 150,
   },
   flatListItem: {
     backgroundColor: "#f9f9f9",

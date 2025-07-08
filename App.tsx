@@ -12,6 +12,7 @@ import {
   Alert,
   ScrollView,
   FlatList,
+  Modal,
 } from "react-native";
 
 const img1 = require("./assets/img1.png");
@@ -62,6 +63,7 @@ const flatListData = [
 export default function App() {
   const [count, setCount] = useState<number>(0);
   const [second, setSecend] = useState<number>(0);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => setSecend(second + 1), 1000); 
@@ -82,7 +84,26 @@ export default function App() {
         <Text>Count: {count}</Text>
         <Button title="Decrement" onPress={() => setCount(count - 1)} />
       </View>
-      <Text style={{paddingTop: 50}}>Second: {second}</Text>
+      <View style={{paddingVertical: 50}}>
+        <Button title="Open Modal" onPress={() => setModalVisible(true)} />
+      <Modal 
+        animationType="slide" 
+        // transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+        style={styles.modalContainer}
+
+      >
+        <View style={styles.modalContent}>
+          <Text style={styles.modalText}>Modal Content</Text>
+          <Button title="Close Modal" onPress={() => setModalVisible(!modalVisible)} />
+        </View>
+      </Modal>
+
+       
+ 
+      </View>
+      <Text style={{paddingTop: modalVisible ? 0 : 50}}>Second: {second}</Text>
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
@@ -230,11 +251,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: "80%",
-    backgroundColor: "#fff",
+    width,
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
   },
   modalText: {
     fontSize: 18,

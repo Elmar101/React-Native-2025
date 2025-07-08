@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Alert,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 const img1 = require("./assets/img1.png");
@@ -19,13 +20,48 @@ const imgUri =
 
 const { width } = Dimensions.get("window");
 
+const flatListData = [
+  {
+    id: "1",
+    title: "Item 1",
+    description: "Description for Item 1",
+  },
+  {
+    id: "2",
+    title: "Item 2",
+    description: "Description for Item 2",
+  },
+  {
+    id: "3",
+    title: "Item 3",
+    description: "Description for Item 3",
+  },
+  {
+    id: "4",
+    title: "Item 4",
+    description: "Description for Item 4",
+  },
+  {
+    id: "5",
+    title: "Item 5",
+    description: "Description for Item 5",
+  },
+  {
+    id: "6",
+    title: "Item 6",
+    description: "Description for Item 6",
+  },
+  {
+    id: "7",
+    title: "Item 7",
+    description: "Description for Item 7",  
+  },
+];
+
 export default function App() {
   const handlePress = () => {
     Alert.alert("Button Pressed", "You pressed the button!", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-      },
+      { text: "Cancel", onPress: () => console.log("Cancel Pressed") },
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
   };
@@ -69,7 +105,7 @@ export default function App() {
           ))}
         </View>
       </ScrollView>
-      
+
       <ScrollView
         horizontal
         contentContainerStyle={styles.horizontalList}
@@ -81,6 +117,16 @@ export default function App() {
           </View>
         ))}
       </ScrollView>
+      <FlatList
+        data={flatListData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.flatListItem}>
+            <Text style={styles.flatListItemText}>{item.title}</Text>
+            <Text style={styles.flatListItemText}>{item.description}</Text>
+          </View>
+        )}
+      />
     </>
   );
 }
@@ -195,5 +241,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#fff",
+  },
+  flatList: {
+    paddingVertical: 20,
+  },
+  flatListItem: {
+    backgroundColor: "#f9f9f9",
+    padding: 15,
+    borderRadius: 10,
+    marginVertical: 6,
+    marginHorizontal: 16,
+  },
+  flatListItemText: {
+    fontSize: 18,
+    color: "#333",
   },
 });

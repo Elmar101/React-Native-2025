@@ -14,6 +14,7 @@ import {
   FlatList,
   Modal,
 } from "react-native";
+import ModalComponents from "./components/ModalComponents";
 
 const img1 = require("./assets/img1.png");
 const img2 = require("./assets/img2.png");
@@ -63,7 +64,6 @@ const flatListData = [
 export default function App() {
   const [count, setCount] = useState<number>(0);
   const [second, setSecend] = useState<number>(0);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => setSecend(second + 1), 1000); 
@@ -84,26 +84,8 @@ export default function App() {
         <Text>Count: {count}</Text>
         <Button title="Decrement" onPress={() => setCount(count - 1)} />
       </View>
-      <View style={{paddingVertical: 50}}>
-        <Button title="Open Modal" onPress={() => setModalVisible(true)} />
-      <Modal 
-        animationType="slide" 
-        // transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-        style={styles.modalContainer}
-
-      >
-        <View style={styles.modalContent}>
-          <Text style={styles.modalText}>Modal Content</Text>
-          <Button title="Close Modal" onPress={() => setModalVisible(!modalVisible)} />
-        </View>
-      </Modal>
-
-       
- 
-      </View>
-      <Text style={{paddingTop: modalVisible ? 0 : 50}}>Second: {second}</Text>
+      <ModalComponents/>
+      <Text style={{paddingTop: 10}}>Second: {second}</Text>
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
@@ -243,23 +225,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
     marginTop: 20,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width,
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 20,
   },
   horizontalList: {
     paddingVertical: 20,
